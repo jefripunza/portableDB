@@ -30,6 +30,7 @@ Database adalah kumpulan informasi yang disimpan di dalam komputer secara sistem
 # DEMO
 
 <a href="https://jefripunza.github.io/portableDB" target="_blank" rel="norefferer">https://jefripunza.github.io/portableDB</a>
+[go](http://stackoverflow.com){:target="_blank" rel="noopener"}
 
 ### 2. Split Text
 
