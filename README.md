@@ -120,11 +120,11 @@ function getData() {
 
 ```javascript
 sendRequest("clear", {}, (response) => {
-  if (response.success) {
-    // ok
-  } else {
-    // error
-  }
+    if (response.success) {
+        // ok
+    } else {
+        // error
+    }
 });
 ```
 
@@ -134,56 +134,47 @@ Struktur data yang akan disimpan SANGAT BERGANTUNG pada object yang di kirim! <b
 Misal, kita mempunyai object {name: name, message: message} maka struktur yang akan tersimpan di satu data ini mempunyai kolom / key name & message.
 
 ```javascript
-sendRequest(
-  "add",
-  {
-    name,
-    message,
-  },
-  (response) => {
-    if (response.success) {
-      // ok
-    } else {
-      // error
+sendRequest("add", {
+        name,
+        message,
+    }, (response) => {
+        if (response.success) {
+            // ok
+        } else {
+            // error
+        }
     }
-  }
 );
 ```
 
 ## Edit data
 
 ```javascript
-sendRequest(
-  "edit",
-  {
-    id: "value from _id", // index select
-    message, // change value from key
-  },
-  (response) => {
-    if (response.success) {
-      // ok
-    } else {
-      // error
+sendRequest("edit", {
+        id: "value from _id", // index select
+        message, // change value from key
+    }, (response) => {
+        if (response.success) {
+            // ok
+        } else {
+            // error
+        }
     }
-  }
 );
 ```
 
 ## Delete data
 
 ```javascript
-sendRequest(
-  "delete",
-  {
-    id: "value from _id", // index select
-  },
-  (response) => {
-    if (response.success) {
-      // ok
-    } else {
-      // error
+sendRequest("delete", {
+        id: "value from _id", // index select
+    }, (response) => {
+        if (response.success) {
+            // ok
+        } else {
+            // error
+        }
     }
-  }
 );
 ```
 
