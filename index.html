@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <title>Test CRUD!</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Test CRUD!</h1>
+
+        <form id="mainForm">
+            <div class="mb-3">
+                <label for="input-name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="input-name" name="input-name" placeholder="Enter your name...">
+                <div id="info-input-name" class="form-text text-danger"></div>
+            </div>
+            <div class="mb-3">
+                <label for="input-message" class="form-label">Message</label>
+                <textarea class="form-control" id="input-message" name="input-message" rows="3" placeholder="Enter your message..."></textarea>
+                <div id="info-input-message" class="form-text text-danger"></div>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Save</button>
+            <button type="button" class="btn btn-outline-warning" id="btn-clear" style="display: none;">Clear
+                Data</button>
+        </form>
+
+        <hr style="height:20px;" />
+
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Message</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="foreach"></tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        const url = "/pDB.php",
+            password = "password"; // change this
+
+        function escapeCharEntities() {
+            var map = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                "\"": "&quot;",
+                "'": "&apos;"
+            };
+            return map;
+        }
+
+        function swapJsonKeyValues(json) {
+            var count = Object.keys(json).length;
+            var obj = {};
+            var keys = '[',
+                val = '(',
+                keysCount = 1;
+            for (var key in json) {
+                if (json.hasOwnProperty(key)) {
+                    obj[json[key]] = key;
+                    keys += key;
+                    if (keysCount < count) {
+                        val += json[key] + '|';
+                    } else {
+                        val += json[key];
+                    }
+                    keysCount++;
+                }
+            }
+            keys += ']';
+            val += ')';
+            console.log(keys, ' == ', val);
+            mapkeys = keys;
+            mapvalues = val;
+            return obj;
+        }
+        var mapkeys = '',
+            mapvalues = '';
+        var html = {
+            encodeRex: function() {
+                return new RegExp(mapkeys, 'g'); // "[&<>"']"
+            },
+            decodeRex: function() {
+                return new RegExp(mapvalues, 'g'); // "(&amp;|&lt;|&gt;|&quot;|&apos;)"
+            },
+            encodeMap: JSON.parse(JSON.stringify(escapeCharEntities())), // json = {&: "&amp;", <: "&lt;", >: "&gt;", ": "&quot;", ': "&apos;"}
+            decodeMap: JSON.parse(JSON.stringify(swapJsonKeyValues(escapeCharEntities()))),
+            encode: function(str) {
+                var encodeRexs = html.encodeRex();
+                // console.log('Encode Rex: ', encodeRexs); // /[&<>"']/gm
+                return str.replace(encodeRexs, function(m) {
+                    // console.log('Encode M: ', m);
+                    return html.encodeMap[m];
+                }); // m = < " > SpecialChars
+            },
+            decode: function(str) {
+                var decodeRexs = html.decodeRex();
+                // console.log('Decode Rex: ', decodeRexs); // /(&amp;|&lt;|&gt;|&quot;|&apos;)/g
+                return str.replace(decodeRexs, function(m) {
+                    // console.log('Decode M: ', m);
+                    return html.decodeMap[m];
+                }); // m = &lt; &quot; &gt;
+            }
+        };
+
+        function getData() {
+            const data = JSON.parse($.ajax({
+                type: "GET",
+                url: url + `?password=${password}&execute=list`,
+                async: false
+            }).responseText);
+            if (data.success) {
+                return data.data;
+            } else {
+                return {
+                    message: "request error!"
+                }
+            }
+        }
+
+        function sendRequest(execute, object, callback) {
+            $.post(url + `?password=${password}&execute=${execute}`, object)
+                .done(function(data) {
+                    const response = JSON.parse(data);
+                    callback(response);
+                });
+        }
+
+        function refreshData() {
+            let data = getData();
+
+            if (data.length > 0) {
+                document.getElementById("btn-clear").style.display = "";
+                data = data.map((val, index) => {
+                    var name = html.encode(val.name),
+                        name_escape = encodeURI(val.name).replaceAll("'", "&apoos;"),
+                        message = html.encode(val.message),
+                        message_escape = encodeURI(val.message).replaceAll("'", "&apoos;");
+
+                    return `
+                    <tr>
+                        <th scope="row">${index + 1}</th>
+                        <td>${name}</td>
+                        <td>${message}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-secondary" onclick="askEdit('${val._id}','${name_escape}','${message_escape}')">
+                                <i class="fa fa-pencil" ></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="askDelete('${val._id}','${name_escape}')">
+                                <i class="fa fa-trash" ></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                }).join("")
+            } else {
+                document.getElementById("btn-clear").style.display = "none";
+                data = `
+                    <tr class="text-center">
+                        <td colspan="4">No Data!</td>
+                    </tr>
+                `;
+            }
+            document.getElementById("foreach").innerHTML = data;
+        }
+
+        function askEdit(id, name, message) {
+            var name_escape = decodeURI(name).replaceAll("&apoos;", "'"),
+                message_escape = decodeURI(message).replaceAll("&apoos;", "'");
+
+            Swal.fire({
+                title: `Edit: <b>"${name_escape}"</b>`,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    placeholder: 'Enter your new message...',
+                },
+                inputValue: message_escape,
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Save!',
+                showLoaderOnConfirm: true,
+                preConfirm: (newMessage) => {
+                    var data = new FormData();
+                    data.append("id", id);
+                    data.append("message", newMessage);
+
+                    return fetch(url + `?password=${password}&execute=edit`, {
+                            method: "POST",
+                            body: data
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText)
+                            }
+                            // console.log(response.text()); //debug
+                            return response.json();
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const response = result.value;
+                    if (response.success) {
+                        Swal.fire({
+                            title: `Success!`,
+                            html: `<b>"${name_escape}"</b> has been changed.`,
+                            icon: 'success',
+                            confirmButtonColor: '#6c757d',
+                        })
+                        refreshData();
+                    } else {
+                        Swal.fire(
+                            'Failed to change!',
+                            response.message,
+                            'error'
+                        )
+                    }
+                }
+            })
+        }
+
+        function askDelete(id, name) {
+            var name_escape = decodeURI(name).replaceAll("&apoos;", "'");
+
+            Swal.fire({
+                title: `Are you sure you want to delete <b>"${name_escape}"</b>?`,
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // execute
+                    sendRequest("delete", {
+                        "id": id
+                    }, (response) => {
+                        if (response.success) {
+                            Swal.fire({
+                                title: `Deleted!`,
+                                html: `<b>"${name_escape}"</b> has been deleted.`,
+                                icon: 'success',
+                                confirmButtonColor: '#6c757d',
+                            })
+                            refreshData();
+                        } else {
+                            Swal.fire(
+                                'Failed to delete!',
+                                response.message,
+                                'error'
+                            )
+                        }
+                    })
+
+                }
+            })
+        }
+
+        window.onload = () => {
+            refreshData();
+        }
+
+        document.getElementById("input-name").addEventListener("keyup", (e) => {
+            if (e.target.value.length > 0) {
+                document.getElementById("info-input-name").innerHTML = "";
+            } else {
+                document.getElementById("info-input-name").innerHTML = "Please enter your name...";
+            }
+        })
+        document.getElementById("input-message").addEventListener("keyup", (e) => {
+            if (e.target.value.length > 0) {
+                document.getElementById("info-input-message").innerHTML = "";
+            } else {
+                document.getElementById("info-input-message").innerHTML = "Please enter your message...";
+            }
+        })
+
+        document.getElementById("mainForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const name = e.target.elements['input-name'].value,
+                info_name = document.getElementById("info-input-name"),
+                message = e.target.elements['input-message'].value,
+                info_message = document.getElementById("info-input-message");
+            var ok = 0;
+
+            // validate
+            if (name.length > 0) {
+                ok++;
+            } else {
+                info_name.innerHTML = "Please enter your name..."
+            }
+            if (message.length > 0) {
+                ok++;
+            } else {
+                info_message.innerHTML = "Please enter your message..."
+            }
+
+            if (ok >= 2) {
+                // execute
+                sendRequest("add", {
+                    name,
+                    message
+                }, (response) => {
+                    if (response.success) {
+                        document.getElementById("input-name").value = null;
+                        document.getElementById("input-message").value = null;
+                        refreshData();
+                        toastr.success(`<b>${name}</b> was successfully added!`)
+                    }
+                })
+            }
+        });
+
+        document.getElementById("btn-clear").addEventListener("click", () => {
+            Swal.fire({
+                title: `Are you sure you want to clear all data?`,
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // execute
+                    sendRequest("clear", {}, (response) => {
+                        if (response.success) {
+                            refreshData();
+                            toastr.success(`successfully cleared data!`)
+                        }
+                    })
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>
