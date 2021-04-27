@@ -25,8 +25,7 @@ Database adalah kumpulan informasi yang disimpan di dalam komputer secara sistem
 ---
 
 # DEMO
-
-[https://jefripunza.github.io/portableDB](https://jefripunza.github.io/portableDB){:target="_blank"}
+<a href="https://jefripunza.github.io/portableDB" target="_blank">https://jefripunza.github.io/portableDB</a>
 
 ### 2. Split Text
 dapat mengambil data dari sebuah string dengan menggunakan variabel separator dan dapat memilih data pada urutannya.
