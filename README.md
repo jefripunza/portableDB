@@ -24,14 +24,17 @@
 [![Custom badge](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/manual/en/)
 [![Custom badge](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://www.javascript.com/)
 
-<br />
 Database adalah kumpulan informasi yang disimpan di dalam komputer secara sistematik sehingga dapat diperiksa menggunakan suatu program komputer untuk memperoleh informasi dari basis data tersebut. Dalam hal penyimpanan data diperlukan sebuah database yang digunakan untuk menyimpan data-data. Ada beberapa macam database yang sudah ada dan beberapa juga sudah banyak dikenal oleh para programmer salah satunya yang sering dipakai adalah MySQL. Nah project kali ini kita tidak akan menggunakan database apapun karena project ini sudah sangat-sangat portabel untuk menjadi sebuah database sederhana (tidak terkoneksi dengan database apapun). Project ini sangat cocok digunakan untuk menyimpan komentar atau konten-konten yang bisa dilihat secara umum.
 
 ---
 
+<br />
+
 # DEMO
 
 <a href="https://jefripunza.github.io/portableDB" target="_blank" rel="norefferer">https://jefripunza.github.io/portableDB</a> <br/>
+
+<br />
 
 # PERSIAPAN
 
@@ -44,18 +47,12 @@ Langkah-langkah untuk menggunakan project ini :
 $PASSWORD = "password"; // change this, default: password
 ```
 
-<br />
-
 ## 2. Settings di Website
 
 ### Tambahkan CDN yang dibutuhkan
 
 ```html
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"
-></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 ```
 
 ### Tambahkan Javascript untuk konektor
@@ -94,6 +91,8 @@ function sendRequest(execute, object, callback) {
 <br />
 
 # PENGGUNAAN
+
+Didalam penggunaannya terdapat sistem CRUD yang di inisialkan sebagai <b>"execute"</b> yang terdiri dari <b>list, clear, add, edit, & delete</b>.
 
 ## List data
 
@@ -149,6 +148,8 @@ sendRequest("add", {
 
 ## Edit data
 
+Diwajibkan menggunakan index select menggunakan key <b>"id"</b> untuk memilih data mana yang akan diubah dan menambahkan object lain selain <b>"id"</b> untuk merubah value nya (multi).
+
 ```javascript
 sendRequest("edit", {
         id: "value from _id", // index select
@@ -164,6 +165,8 @@ sendRequest("edit", {
 ```
 
 ## Delete data
+
+Diwajibkan menggunakan index select menggunakan key <b>"id"</b> untuk memilih data mana yang akan dihapus.
 
 ```javascript
 sendRequest("delete", {
@@ -182,7 +185,7 @@ sendRequest("delete", {
 
 # Support the project
 
-Apakah kamu menyukai library ini? Please support saya dengan menekan subscribe di [Youtube Channel](https://www.youtube.com/user/jefripunza/videos/) saya...
+Apakah kamu menyukai project ini? Please support saya dengan menekan subscribe di [Youtube Channel](https://www.youtube.com/user/jefripunza/videos/) saya...
 
 <br />
 
