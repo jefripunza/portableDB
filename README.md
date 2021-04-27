@@ -1,12 +1,14 @@
 ![banner](icon.svg)
 
 ---
+
 [![Custom badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fjefripunza-youtube-channel-badge.vercel.app%2Fapi%2Fsubscriber)](https://www.youtube.com/user/jefripunza/)
 [![Custom badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fjefripunza-youtube-channel-badge.vercel.app%2Fapi%2Fviews)](https://www.youtube.com/user/jefripunza/)
 [![Custom badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fjefripunza-youtube-channel-badge.vercel.app%2Fapi%2Fcomments)](https://www.youtube.com/user/jefripunza/)
 [![Custom badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fjefripunza-youtube-channel-badge.vercel.app%2Fapi%2Fvideos)](https://www.youtube.com/user/jefripunza/videos/)
 
 # Donate
+
 [![Donate](https://img.shields.io/badge/paypal-%2300457C.svg?&style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/jefripunza)
 
 # Sosial Media
@@ -18,6 +20,7 @@
 [![Custom badge](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jefri-herdi-triyanto-ba76a8106/)
 
 # Introduction
+
 [![Custom badge](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/manual/en/)
 <br />
 Database adalah kumpulan informasi yang disimpan di dalam komputer secara sistematik sehingga dapat diperiksa menggunakan suatu program komputer untuk memperoleh informasi dari basis data tersebut. Dalam hal penyimpanan data diperlukan sebuah database yang digunakan untuk menyimpan data-data. Ada beberapa macam database yang sudah ada dan beberapa juga sudah banyak dikenal oleh para programmer salah satunya yang sering dipakai adalah MySQL. Nah project kali ini kita tidak akan menggunakan database apapun karena project ini sudah sangat-sangat portabel untuk menjadi sebuah database sederhana (tidak terkoneksi dengan database apapun). Project ini sangat cocok digunakan untuk menyimpan komentar atau konten-konten yang bisa dilihat secara umum.
@@ -25,10 +28,13 @@ Database adalah kumpulan informasi yang disimpan di dalam komputer secara sistem
 ---
 
 # DEMO
+
 <a href="https://jefripunza.github.io/portableDB" target="_blank" rel="norefferer">https://jefripunza.github.io/portableDB</a>
 
 ### 2. Split Text
+
 dapat mengambil data dari sebuah string dengan menggunakan variabel separator dan dapat memilih data pada urutannya.
+
 ```java
 //SEPARATOR = #
 //semua data didepannya harus ada separatornya
@@ -43,7 +49,9 @@ String data2 = splitText(text,'#',2); //2 adalah urutan data yang ditunjuk
 ```
 
 ### 3. Replace Text
+
 dapat merubah isi string yang akan kita rubah dengan string baru.
+
 ```java
 String awal = "Aku Belanda!";
 String hasil = replaceText(awal, "Belanda", "Indonesia"); //replaceText(awal, tunjuk, rubah)
@@ -53,7 +61,9 @@ String hasil = replaceText(awal, "Belanda", "Indonesia"); //replaceText(awal, tu
 ```
 
 ### 4. Sensor Range
+
 dapat meminimalisir kode untuk pengambilan data dari sensor sehingga lebih minimalis dalam pengetikan.
+
 ```java
 float sensor = sensorRange(A0,0,1023,0,10); //sensorRange(pinSensor,nilai_sensor_kecil,nilai_sensor_besar,nilai_tujuan_kecil,nilai_tujuan_besar)
 
@@ -61,38 +71,37 @@ float sensor = sensorRange(A0,0,1023,0,10); //sensorRange(pinSensor,nilai_sensor
 // 9 (contoh)
 ```
 
-
 <br />
-
-
 
 ## KONVERSI NILAI
 
 ### 1. String to Char
+
 ```java
 String awal = "akhsiap";
 char *text = string2char(awal);
 ```
 
 ### 2. Char to Int
+
 ```java
 char *text = "24.5";
 int nilai = char2int(text);
 ```
 
 ### 3. String to Integer
+
 ```java
 String text = "2454";
 int nilai = string2int(text);
 ```
 
-
 <br />
-
 
 ## Manajemen EEPROM
 
 ### Menulis String kedalam EEPROM
+
 ```java
 writeStringToEEPROM(0, "i'm fine, thanks");
 
@@ -101,6 +110,7 @@ writeStringToEEPROM(0, "i'm fine, thanks");
 ```
 
 ### Membaca String didalam EEPROM
+
 ```java
 String ambilString = readStringFromEEPROM(0);
 
@@ -108,21 +118,19 @@ String ambilString = readStringFromEEPROM(0);
 ```
 
 ### Menghapus data didalam EEPROM
+
 ```java
 eraseValueEEPROM(0);
 
 // 0 = adalah address awal penghapusan sampai akhir panjang EEPROM (setiap microcontroller berbeda ukuran EEPROM nya)
 ```
 
-
-
 <br />
 
-
-
-
 ## Bermain Musik
+
 dapat membunyikan nada note untuk bermain lagu dengan menggunakan buzzer.
+
 ```java
 bunyikan(buzzerPin,NOTE_C5, 100, 50);
 
@@ -141,18 +149,23 @@ bunyikan(buzzerPin, NOTE_C5, SPEED_2_BEAT , SPEED_1_BEAT);
 // CS7 = adalah note C#5 (tuts warna hitam note C# oktaf 7)
 ```
 
-
-
 <br />
 
-
-
-
 # Support the project
-Apakah kamu menyukai library ini? Please support saya dengan menekan subscribe di [Youtube Channel](https://www.youtube.com/user/jefripunza/){:target="_blank"} saya...
+
+Apakah kamu menyukai library ini? Please support saya dengan menekan subscribe di [Youtube Channel](https://www.youtube.com/user/jefripunza/){:target="\_blank"} saya...
 
 <br />
 
 # Donation Please
+
 Butuh ngopi gans, kasih lah untuk biaya pengembangan agar mudah membeli alat dan buat makan <br />
 [![Donate](https://img.shields.io/badge/paypal-%2300457C.svg?&style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/jefripunza)
+
+<script>
+    const anchors = document.querySelectorAll('a');
+    anchors.forEach((a) => {
+        a.setAttribute('target', '__blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+    });
+</script>
