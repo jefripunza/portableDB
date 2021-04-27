@@ -183,6 +183,12 @@ sendRequest("delete", {
 
 <br />
 
+# DEVELOPMENT MODE
+
+untuk menjalankan project ini secara development dengan cara (windows) buka file <b>webserver.bat</b> lalu isikan port : 8888
+
+<br />
+
 # Support the project
 
 Apakah kamu menyukai project ini? Please support saya dengan menekan subscribe di [Youtube Channel](https://www.youtube.com/user/jefripunza/videos/) saya...
