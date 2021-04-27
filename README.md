@@ -32,7 +32,7 @@ Database adalah kumpulan informasi yang disimpan di dalam komputer secara sistem
 
 # DEMO
 
-<a href="https://jefripunza.github.io/portableDB" target="_blank" rel="norefferer">https://jefripunza.github.io/portableDB</a> <br/>
+<a href="https://portabledb.jefriherditriyanto.com/" target="_blank" rel="norefferer">https://portabledb.jefriherditriyanto.com/</a> <br/>
 
 <br />
 
