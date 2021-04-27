@@ -148,7 +148,7 @@ sendRequest("add", {
 
 ## Edit data
 
-Diwajibkan menggunakan index select menggunakan key <b>"id"</b> untuk memilih data mana yang akan diubah dan menambahkan object lain selain <b>"id"</b> untuk merubah value nya (multi).
+Diwajibkan menggunakan index select menggunakan key <b>"id"</b> dan value nya dari nilai data <b>"_id"</b> untuk memilih data mana yang akan diubah dan menambahkan object lain selain <b>"id"</b> untuk merubah value nya (multi).
 
 ```javascript
 sendRequest("edit", {
@@ -166,7 +166,7 @@ sendRequest("edit", {
 
 ## Delete data
 
-Diwajibkan menggunakan index select menggunakan key <b>"id"</b> untuk memilih data mana yang akan dihapus.
+Diwajibkan menggunakan index select menggunakan key <b>"id"</b> dan value nya dari nilai data <b>"_id"</b> untuk memilih data mana yang akan dihapus.
 
 ```javascript
 sendRequest("delete", {
