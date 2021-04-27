@@ -193,11 +193,3 @@ Apakah kamu menyukai project ini? Please support saya dengan menekan subscribe d
 
 Butuh ngopi gans, kasih lah untuk biaya pengembangan agar mudah membeli alat dan buat makan <br />
 [![Donate](https://img.shields.io/badge/paypal-%2300457C.svg?&style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/jefripunza)
-
-<script>
-    const anchors = document.querySelectorAll('a');
-    anchors.forEach((a) => {
-        a.setAttribute('target', '__blank');
-        a.setAttribute('rel', 'noopener noreferrer');
-    });
-</script>
